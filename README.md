@@ -2,6 +2,8 @@
 
 An application used to play lottery with Ethereum through smart contract written in Solidity
 
+[React Ethereum Lottery](https://github.com/omarbastos/react-ethereum-lottery/blob/master/example.png?raw=true)
+
 ## Demo
 
 [Visit demo](https://react-etherum-lottery.vercel.app)
