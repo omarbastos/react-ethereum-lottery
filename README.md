@@ -1,30 +1,36 @@
-## React Ethereum Lottery
+# React Ethereum Lottery
 
 An application used to play lottery with Ethereum through smart contract written in Solidity
 
-## Stack
--React
+## Demo
 
+[Visit demo](https://react-etherum-lottery.vercel.app)
+
+## Stack
+
+- React
+- Tailwind
+- Web3.js
+- Solidity
 
 ## Installation and Setup Instructions
 
-#### Example:  
+#### Example:
 
 Clone down this repository. You will need `node` and `npm` installed globally on your machine. You have to install `metamask` extension on your browser.
 
 Installation:
 
-`npm install`  
+`npm install`
 
-To Run Test Suite:  
+To Run Test Suite:
 
-`npm test`  
+`npm test`
 
 To Start Server:
 
-`npm start`  
+`npm start`
 
 To Visit App:
 
-`localhost:3000/`  
-
+`localhost:3000/`
