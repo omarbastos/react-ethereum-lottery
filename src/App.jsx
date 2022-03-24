@@ -20,6 +20,12 @@ function App() {
   const [loadingText, setLoadingText] = useState('Loading');
 
   const [amountEnter, setAmountEnter] = useState(0);
+
+  useEffect(() => {
+    if (window?.ethereum?.isEnable()) {
+      fetchContract();
+    }
+  }, []);
   const fetchContract = async () => {
     setLoading(true);
     setLoadingText('Fetching contract details');
@@ -30,7 +36,7 @@ function App() {
       setPlayers(fetchedPlayers);
       const fetchedBalance = await lottery.methods
         .getBalance()
-        .call({ from: window.ethereum.selectedAddress });
+        .call({ from: window?.ethereum?.selectedAddress });
 
       setBalance(fetchedBalance);
       setLoadingText('Almost done');
@@ -44,17 +50,13 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    fetchContract();
-  }, []);
-
   const handleEnter = async () => {
     if (!amountEnter) return;
     setLoadingText('Entering lottery');
     setLoading(true);
     try {
       await lottery.methods.enter().send({
-        from: window.ethereum.selectedAddress,
+        from: window?.ethereum?.selectedAddress,
         value: web3.utils.toWei(amountEnter.toString(), 'ether'),
       });
       await fetchContract();
@@ -76,7 +78,7 @@ function App() {
     try {
       await lottery.methods
         .pickWinner()
-        .send({ from: window.ethereum.selectedAddress });
+        .send({ from: window?.ethereum?.selectedAddress });
       await fetchContract();
       setAlert({
         status: true,
@@ -91,7 +93,24 @@ function App() {
     }
   };
   const isManager =
-    manager.toUpperCase() === window.ethereum.selectedAddress.toUpperCase();
+    manager.toUpperCase() === window?.ethereum?.selectedAddress?.toUpperCase();
+  if (!window?.ethereum?.isEnable()) {
+    return (
+      <div className="w-full h-full flex flex-col justify-center items-center bg-gray-900">
+        <div className="flex flex-col md:rounded-xl bg-gray-800 h-full md:h-auto w-full md:w-auto overflow-x-hidden md:max-w-2xl p-2 md:p-8">
+          <div className="flex-auto">
+            <h2 className="text-gray-100 text-3xl font-bold my-1">
+              Lottery Contract
+            </h2>
+            <hr />
+            <p className="text-gray-300 text-lg text-left my-4 break-words">
+              Metamask is not available, please connect and reload the page
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
   if (loading) return <Loading text={loadingText} />;
   return (
     <div className="w-full h-full flex flex-col justify-center items-center bg-gray-900">
