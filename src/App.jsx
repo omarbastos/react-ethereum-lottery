@@ -22,7 +22,7 @@ function App() {
   const [amountEnter, setAmountEnter] = useState(0);
 
   useEffect(() => {
-    if (window?.ethereum?.isEnable) {
+    if (window?.ethereum) {
       fetchContract();
     }
   }, []);
@@ -94,7 +94,7 @@ function App() {
   };
   const isManager =
     manager.toUpperCase() === window?.ethereum?.selectedAddress?.toUpperCase();
-  if (!window?.ethereum?.isEnable) {
+  if (!window?.ethereum) {
     return (
       <div className="w-full h-full flex flex-col justify-center items-center bg-gray-900">
         <div className="flex flex-col md:rounded-xl bg-gray-800 h-full md:h-auto w-full md:w-auto overflow-x-hidden md:max-w-2xl p-2 md:p-8">
